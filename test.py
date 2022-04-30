@@ -1,14 +1,18 @@
 from game import Game
 
+def test_rollable_die():
+    """" Checks to ensure each game is played with a new set of dice. """
 
-def test_diversity():
     test_game = Game(4)
 
-    test_game.play_rounds(100)
-
-    for player in range(test_game.player_count):
-        score = test_game.scorecard[player]
-        assert score["wins"] != 100 and score["ties"] != 100
+    for _ in range(100):
+        test_game.play_round()
+        check = True
+        
+        for player in test_game.players:
+            if player.rollable_die != []:
+                check = False
+    assert check
 
 def test_die_reset():
     test_game = Game(4)
